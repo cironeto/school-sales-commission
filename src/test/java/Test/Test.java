@@ -27,8 +27,10 @@ public class Test {
         private static void buildMainMenu() {
             System.out.println("----------------------------------");
             System.out.println("CHOOSE AN OPTION TYPING THE NUMBER");
-            System.out.println("1 - Search seller");
+            System.out.println("1 - Search seller(s)");
             System.out.println("2 - Delete seller");
+            System.out.println("3 - Insert seller");
+            System.out.println("4 - Update seller");
             System.out.println("0 - Exit");
             System.out.println("----------------------------------");
         }
