@@ -1,4 +1,4 @@
-package domain;
+package dev.cironeto.domain;
 
 import java.util.Objects;
 
