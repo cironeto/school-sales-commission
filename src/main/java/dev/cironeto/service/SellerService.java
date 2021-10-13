@@ -68,10 +68,14 @@ public class SellerService {
     public static void update() {
         System.out.println("Type the ID you want to update");
         Seller seller = SellerRepository.findById(input.nextInt());
-        System.out.println("Type the new name and salary");
+        System.out.println("Type the new name");
+        String nameToUpdate = input.next();
+        System.out.println("Type the new salary");
+        double salaryToUpdate = input.nextDouble();
+
         Seller sellerToUpdate = Seller.SellerBuilder.seller()
-                .name(input.next())
-                .salary(input.nextDouble())
+                .name(nameToUpdate)
+                .salary(salaryToUpdate)
                 .id(seller.getId())
                 .build();
         SellerRepository.update(sellerToUpdate);

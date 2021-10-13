@@ -89,6 +89,7 @@ public class StudentService {
                 .course(courseToUpdate)
                 .fee(feeToUpdate)
                 .tuition(tuitionToUpdate)
+                .id(student.getId())
                 .build();
         StudentRepository.update(studentToUpdate);
     }
