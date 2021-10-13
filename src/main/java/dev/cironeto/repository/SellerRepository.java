@@ -15,7 +15,7 @@ import java.util.List;
 public class SellerRepository {
 
     public static List<Seller> findByName(String name) {
-        log.info("Finding Seller by name '{}'\n", name);
+        log.info("Finding Seller by name '{}'", name);
         List<Seller> sellers = new ArrayList<>();
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement ps = preparedStatementFindByName(conn, name);

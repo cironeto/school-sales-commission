@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="school-sales-commission-crud" />
+        <module name="school-sales-comission-crud" />
       </profile>
     </annotationProcessing>
   </component>

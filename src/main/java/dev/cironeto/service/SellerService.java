@@ -25,7 +25,7 @@ public class SellerService {
             case 4:
                 update();
                 break;
-            case 0:
+            case 9:
                 break;
             default:
                 System.out.println("Invalid option");
