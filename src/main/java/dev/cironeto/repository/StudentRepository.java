@@ -47,6 +47,15 @@ public class StudentRepository {
         return students;
     }
 
+    public static PreparedStatement preparedStatementFindByName(Connection conn, String name) throws SQLException {
+        String sql = "SELECT student.id, student.name, student.course, student.fee, student.tuition,  seller.name as 'seller_name', seller.id as seller_id\n" +
+                "FROM school.student INNER JOIN school.seller on student.seller_id = seller.id\n" +
+                "WHERE student.name LIKE ?;";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, String.format("%%%s%%", name));
+        return ps;
+    }
+
     public static Student findById(int id) {
         log.info("Finding Student by id '{}'", id);
         Student student = null;
@@ -75,6 +84,15 @@ public class StudentRepository {
         return student;
     }
 
+    public static PreparedStatement preparedStatementFindById(Connection conn, int id) throws SQLException {
+        String sql = "SELECT student.id, student.name, student.course, student.fee, student.tuition,  seller.name as 'seller_name', seller.id as seller_id\n" +
+                "FROM school.student INNER JOIN school.seller on student.seller_id = seller.id\n" +
+                "WHERE student.id = ?;";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, id);
+        return ps;
+    }
+
 
     public static void delete(int id) {
         try (Connection conn = ConnectionFactory.getConnection();
@@ -87,9 +105,16 @@ public class StudentRepository {
         }
     }
 
+    public static PreparedStatement preparedStatementDelete(Connection conn, Integer id) throws SQLException {
+        String sql = "DELETE FROM `school`.`student` WHERE (`id` = ?);";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, id);
+        return ps;
+    }
+
     public static void save(Student student) {
         try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement ps = PreparedStatementSave(conn, student)) {
+             PreparedStatement ps = preparedStatementSave(conn, student)) {
             ps.executeUpdate();
             log.info("Student saved with success");
         } catch (SQLException e) {
@@ -98,45 +123,7 @@ public class StudentRepository {
         }
     }
 
-    public static void update(Student student) {
-        try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement ps = PreparedStatementUpdate(conn, student)) {
-            ps.executeUpdate();
-            log.info("Student ID '{}' updated", student.getId());
-        } catch (SQLException e) {
-            log.error("Error while updating student");
-            e.printStackTrace();
-        }
-    }
-
-//-----------------------------------------------------------------------------------------
-
-    public static PreparedStatement preparedStatementFindByName(Connection conn, String name) throws SQLException {
-        String sql = "SELECT student.id, student.name, student.course, student.fee, student.tuition,  seller.name as 'seller_name', seller.id as seller_id\n" +
-                "FROM school.student INNER JOIN school.seller on student.seller_id = seller.id\n" +
-                "WHERE student.name LIKE ?;";
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setString(1, String.format("%%%s%%", name));
-        return ps;
-    }
-
-    public static PreparedStatement preparedStatementFindById(Connection conn, int id) throws SQLException {
-        String sql = "SELECT student.id, student.name, student.course, student.fee, student.tuition,  seller.name as 'seller_name', seller.id as seller_id\n" +
-                "FROM school.student INNER JOIN school.seller on student.seller_id = seller.id\n" +
-                "WHERE student.id = ?;";
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setInt(1, id);
-        return ps;
-    }
-
-    public static PreparedStatement preparedStatementDelete(Connection conn, Integer id) throws SQLException {
-        String sql = "DELETE FROM `school`.`student` WHERE (`id` = ?);";
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setInt(1, id);
-        return ps;
-    }
-
-    public static PreparedStatement PreparedStatementSave(Connection conn, Student student) throws SQLException {
+    public static PreparedStatement preparedStatementSave(Connection conn, Student student) throws SQLException {
         String sql = "INSERT INTO `school`.`student` (`name`, `course`, `fee`, `tuition`, `seller_id`) VALUES (?, ?, ?, ?, ?);";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, student.getName());
@@ -147,7 +134,18 @@ public class StudentRepository {
         return ps;
     }
 
-    public static PreparedStatement PreparedStatementUpdate(Connection conn, Student student) throws SQLException {
+    public static void update(Student student) {
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement ps = preparedStatementUpdate(conn, student)) {
+            ps.executeUpdate();
+            log.info("Student ID '{}' updated", student.getId());
+        } catch (SQLException e) {
+            log.error("Error while updating student");
+            e.printStackTrace();
+        }
+    }
+
+    public static PreparedStatement preparedStatementUpdate(Connection conn, Student student) throws SQLException {
         String sql = "UPDATE `school`.`student` SET `course` = ?, `fee` = ?, `tuition` = ? WHERE (`id` = ?);";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, student.getCourse());
@@ -156,5 +154,20 @@ public class StudentRepository {
         ps.setInt(4, student.getId());
         return ps;
     }
+
+//-----------------------------------------------------------------------------------------
+
+
+
+    public static PreparedStatement preparedStatementTotalSalesCommissionById(Connection conn, Seller seller) throws SQLException {
+        String sql = "SELECT student.id, student.name, student.fee, student.seller_id FROM school.student\n" +
+                "INNER JOIN school.seller on student.seller_id = seller.id\n" +
+                "WHERE seller.id = ?;";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, seller.getId());
+
+        return ps;
+    }
+
 
 }

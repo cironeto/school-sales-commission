@@ -1091,16 +1091,22 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="297" parent="285" name="seller_id_idx">
+    <column id="297" parent="285" name="registration_date">
+      <Position>7</Position>
+      <DataType>timestamp|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <index id="298" parent="285" name="seller_id_idx">
       <ColNames>seller_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="298" parent="285" name="PRIMARY">
+    <key id="299" parent="285" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="299" parent="285" name="seller_id">
+    <foreign-key id="300" parent="285" name="seller_id">
       <ColNames>seller_id</ColNames>
       <RefTableName>seller</RefTableName>
       <RefColNames>id</RefColNames>

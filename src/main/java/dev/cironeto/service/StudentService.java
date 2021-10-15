@@ -5,6 +5,7 @@ import dev.cironeto.domain.Student;
 import dev.cironeto.repository.SellerRepository;
 import dev.cironeto.repository.StudentRepository;
 
+import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
 
@@ -56,9 +57,9 @@ public class StudentService {
 
     public static void save() {
         System.out.println("Type the student's name");
-        String name = input.next();
+        String name = input.nextLine();
         System.out.println("type the student's course");
-        String course = input.next();
+        String course = input.nextLine();
         System.out.println("type the student's fee");
         Double fee = input.nextDouble();
         System.out.println("type the student's tuition");
@@ -93,6 +94,9 @@ public class StudentService {
                 .build();
         StudentRepository.update(studentToUpdate);
     }
+
+
+
 
 
 }

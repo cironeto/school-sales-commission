@@ -1,6 +1,7 @@
 package dev.cironeto.service;
 
 import dev.cironeto.domain.Seller;
+import dev.cironeto.domain.Student;
 import dev.cironeto.repository.SellerRepository;
 
 import java.util.List;
@@ -24,6 +25,9 @@ public class SellerService {
                 break;
             case 4:
                 update();
+                break;
+            case 5:
+                filterSalesById();
                 break;
             case 9:
                 break;
@@ -54,7 +58,7 @@ public class SellerService {
 
     public static void save() {
         System.out.println("Type the seller's name");
-        String name = input.next();
+        String name = input.nextLine();
         System.out.println("type the seller's salary");
         Double salary = input.nextDouble();
         Seller seller = Seller.SellerBuilder.seller()
@@ -79,6 +83,12 @@ public class SellerService {
                 .id(seller.getId())
                 .build();
         SellerRepository.update(sellerToUpdate);
+    }
+
+    public static List<Student> filterSalesById() {
+        System.out.println("Type the ID you want to filter");
+        SellerRepository.filterSalesById(input.nextInt());
+        return null;
     }
 
 
