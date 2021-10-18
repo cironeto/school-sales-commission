@@ -179,11 +179,34 @@ public class SellerRepository {
     }
 
 
+    public static double showTotalCommissionById(int id) {
+        System.out.println(String.format("Total sales commission of seller ID %d : ", id));
+        Seller seller;
+        double totalCommission = 0;
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement ps = preparedStatementShowTotalCommissionById(conn, id);
+             ResultSet rs = ps.executeQuery()) {
+            if (!rs.next()) throw new IllegalArgumentException("ID does not exist");
+            seller = Seller.SellerBuilder.seller()
+                    .id(rs.getInt("seller_id"))
+                    .build();
+            totalCommission = rs.getDouble("Total sales commission");
+            System.out.println(totalCommission);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return totalCommission;
+    }
 
 
-
-
-
+    public static PreparedStatement preparedStatementShowTotalCommissionById(Connection conn, int id) throws SQLException {
+        String sql = "SELECT SUM(student.fee) AS 'Total sales commission', student.seller_id FROM school.student\n" +
+                "INNER JOIN school.seller on student.seller_id = seller.id\n" +
+                "WHERE seller.id = ?;";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, id);
+        return ps;
+    }
 
 
 }

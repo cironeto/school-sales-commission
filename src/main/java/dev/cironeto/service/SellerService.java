@@ -29,6 +29,9 @@ public class SellerService {
             case 5:
                 filterSalesById();
                 break;
+            case 6:
+                showTotalCommissionById();
+                break;
             case 9:
                 break;
             default:
@@ -89,6 +92,12 @@ public class SellerService {
         System.out.println("Type the ID you want to filter");
         SellerRepository.filterSalesById(input.nextInt());
         return null;
+    }
+
+    public static double showTotalCommissionById() {
+        System.out.println("Type the ID you want to see the commission");
+        SellerRepository.showTotalCommissionById(input.nextInt());
+        return 0;
     }
 
 

@@ -159,15 +159,7 @@ public class StudentRepository {
 
 
 
-    public static PreparedStatement preparedStatementTotalSalesCommissionById(Connection conn, Seller seller) throws SQLException {
-        String sql = "SELECT student.id, student.name, student.fee, student.seller_id FROM school.student\n" +
-                "INNER JOIN school.seller on student.seller_id = seller.id\n" +
-                "WHERE seller.id = ?;";
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setInt(1, seller.getId());
 
-        return ps;
-    }
 
 
 }

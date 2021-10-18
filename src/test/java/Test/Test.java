@@ -44,35 +44,32 @@ public class Test {
     }
 
         private static void mainMenu () {
-            System.out.println("----------------------------------");
             System.out.println("CHOOSE AN OPTION TYPING THE NUMBER");
             System.out.println("1 - STUDENT menu");
             System.out.println("2 - SELLER menu");
             System.out.println("0 - Exit");
-            System.out.println("----------------------------------");
         }
 
         private static void buildStudentMenu () {
-            System.out.println("----------------------------------");
             System.out.println("CHOOSE AN OPTION TYPING THE NUMBER");
             System.out.println("1 - Search student(s)");
             System.out.println("2 - Delete student");
             System.out.println("3 - Insert student");
             System.out.println("4 - Update student");
             System.out.println("9 - Return to main menu");
-            System.out.println("----------------------------------");
         }
 
         private static void buildSellerMenu () {
-            System.out.println("----------------------------------");
             System.out.println("CHOOSE AN OPTION TYPING THE NUMBER");
             System.out.println("1 - Search seller(s)");
             System.out.println("2 - Delete seller");
             System.out.println("3 - Insert seller");
             System.out.println("4 - Update seller");
-            System.out.println("5 - Filter sales by ID");
+            System.out.println("-----Reports-----");
+            System.out.println("5 - FILTER SALES BY ID");
+            System.out.println("6 - TOTAL SALES BY ID");
+            System.out.println("-----Reports-----");
             System.out.println("9 - Return to main menu");
-            System.out.println("----------------------------------");
         }
 
     }
