@@ -18,18 +18,21 @@ public class SellerService {
                 findByName();
                 break;
             case 2:
-                delete();
+                findById();
                 break;
             case 3:
-                save();
+                delete();
                 break;
             case 4:
-                update();
+                save();
                 break;
             case 5:
-                filterSalesById();
+                update();
                 break;
             case 6:
+                filterSalesById();
+                break;
+            case 7:
                 showTotalCommissionById();
                 break;
             case 9:

@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static dev.cironeto.repository.InstantiateObjectsFromDatabase.*;
+
 @Log4j2
 public class SellerRepository {
 
@@ -22,11 +24,7 @@ public class SellerRepository {
              PreparedStatement ps = preparedStatementFindByName(conn, name);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
-                Seller seller = Seller.SellerBuilder.seller()
-                        .id(rs.getInt("id"))
-                        .name(rs.getString("name"))
-                        .salary(rs.getDouble("salary"))
-                        .build();
+                Seller seller = instantiateSeller(rs);
                 sellers.add(seller);
             }
             for (int i = 0; i < sellers.size(); i++) {
@@ -54,12 +52,7 @@ public class SellerRepository {
              PreparedStatement ps = preparedStatementFindById(conn, id);
              ResultSet rs = ps.executeQuery()) {
             if (!rs.next()) throw new IllegalArgumentException("ID does not exist");
-            seller = Seller
-                    .SellerBuilder.seller()
-                    .id(rs.getInt("id"))
-                    .name(rs.getString("name"))
-                    .salary(rs.getDouble("salary"))
-                    .build();
+            seller = instantiateSeller(rs);
             System.out.println(seller);
         } catch (SQLException e) {
             log.error("Can not find the seller");
@@ -142,18 +135,8 @@ public class SellerRepository {
              PreparedStatement ps = preparedStatementFilterSalesById(conn, id);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
-                Seller seller = Seller.SellerBuilder.seller()
-                        .id(rs.getInt("seller_id"))
-                        .build();
-                student = Student
-                        .StudentBuilder.student()
-                        .id(rs.getInt("id"))
-                        .name(rs.getString("name"))
-                        .course(rs.getString("course"))
-                        .fee(rs.getDouble("fee"))
-                        .tuition(rs.getDouble("tuition"))
-                        .seller(seller)
-                        .build();
+                instantiateSellerFromStudentTable(rs);
+                student = instantiateStudent(rs);
                 students.add(student);
             }
             for (int i = 0; i < students.size(); i++) {
@@ -187,9 +170,7 @@ public class SellerRepository {
              PreparedStatement ps = preparedStatementShowTotalCommissionById(conn, id);
              ResultSet rs = ps.executeQuery()) {
             if (!rs.next()) throw new IllegalArgumentException("ID does not exist");
-            seller = Seller.SellerBuilder.seller()
-                    .id(rs.getInt("seller_id"))
-                    .build();
+            instantiateSellerFromStudentTable(rs);
             totalCommission = rs.getDouble("Total sales commission");
             System.out.println(totalCommission);
         } catch (SQLException e) {
@@ -207,6 +188,8 @@ public class SellerRepository {
         ps.setInt(1, id);
         return ps;
     }
+
+
 
 
 }

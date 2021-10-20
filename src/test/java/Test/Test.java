@@ -61,13 +61,14 @@ public class Test {
 
         private static void buildSellerMenu () {
             System.out.println("CHOOSE AN OPTION TYPING THE NUMBER");
-            System.out.println("1 - Search seller(s)");
-            System.out.println("2 - Delete seller");
-            System.out.println("3 - Insert seller");
-            System.out.println("4 - Update seller");
+            System.out.println("1 - Search seller(s) by name");
+            System.out.println("2 - Search seller(s) by ID");
+            System.out.println("3 - Delete seller");
+            System.out.println("4 - Insert seller");
+            System.out.println("5 - Update seller");
             System.out.println("-----Reports-----");
-            System.out.println("5 - FILTER SALES BY ID");
-            System.out.println("6 - TOTAL SALES BY ID");
+            System.out.println("6 - FILTER SALES BY ID");
+            System.out.println("7 - TOTAL SALES BY ID");
             System.out.println("-----Reports-----");
             System.out.println("9 - Return to main menu");
         }
